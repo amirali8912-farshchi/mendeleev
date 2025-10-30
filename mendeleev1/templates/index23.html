@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fa">
+
+<head>
+  <meta charset="utf-8">
+  <title>عنصر هیدروژن (H)</title>
+  <style>
+    /* فونت و پس‌زمینه کلی */
+    body {
+
+      display: flex;
+      flex-wrap: wrap;
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      margin: 9;
+      padding: 0;
+      direction: rtl;
+      background: linear-gradient(105deg, #1c5e7a, #000405, #2c5364);
+      min-height: 100vh;
+
+
+
+      color: #e6eef6;
+    }
+
+    section {
+      width: 380px;
+      padding: 20px;
+      border-radius: 14px;
+      background: linear-gradient(105deg, #1c5e7a, #000405, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #ffffff;
+
+      /* فقط یک استایل با دو لایه بوردر */
+      border: 2px solid #5c5959;
+      box-shadow: 0 0 0 4px #030303 inset;
+      /* حداکثر دو باکس در یک ردیف */
+    }
+
+    header {
+      flex: 1 calc(100% - 10px);
+      /* حداکثر دو باکس در یک ردیف */
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>{{e.symbol}}</h1>
+    <!-- <a href="{%url 'home'%}" style="text-decoration: none;">⬅ بازگشت به جدول</a> -->
+  </header>
+
+  <section class="asd">
+    <h2>اطلاعات پایه</h2>
+    {%if e.atomic_number != '-'%}
+    <p><b>عدد اتمی:</b> {{e.atomic_number}}</p>
+    {% endif%}
+    {%if e.atomic_mass != '-'%}
+    <p><b>جرم اتمی:</b> {{e.atomic_mass}}</p>
+    {% endif%}
+    {%if e.category != '-'%}
+    <p><b>دسته:</b> {{e.category}}</p>
+    {% endif%}
+    {%if e.ntm != '-'%}
+    <p><b>حالت:</b> {{e.ntm}}</p>
+    {% endif%}
+  </section>
+
+  {%if e.isotopes != '-'%}
+  <section>
+    <h2>ایزوتوپ‌ها</h2>
+    <ul>
+      
+      <li>{{e.isotopes}}</li>
+    </ul>
+  </section>
+  {% endif%}
+  {%if e.ionic_compounds != '-'%}
+  <section>
+    <h2>ترکیبات یونی</h2>
+    {{e.ionic_compounds}}
+  </section>
+  {% endif%}
+  <!-- symbol = symbol,
+  # atomic_number = atomic_number,
+  # atomic_mass = atomic_mass,
+  # category = category,
+  # ntm = ntm,
+  # isotopes = isotopes,
+  # ionic_compounds = ionic_compounds,
+  # Applications = Applications,
+  # History = History,
+  # discoverer = discoverer,
+  # tod = tod,
+  # Safety = Safety,
+  # interesting_facts = interesting_facts, -->
+  {%if e.Applications != '-'%}
+  <section>
+    <h2>کاربردها</h2>
+    <p>{{e.Applications}}</p>
+  </section>
+  {% endif%}
+  {%if e.History != '-'%}
+  <section>
+    <h2>تاریخچه</h2>
+    <p>{{e.History}}</p>
+  </section>
+  {% endif%}
+  {%if e.discoverer != '-'%}
+  <section>
+    <h2>کاشف</h2>
+    <p>{{e.discoverer}}</p>
+  </section>
+  {% endif%}
+  {%if e.tod != '-'%}
+  <section>
+    <h2>زمان کشف</h2>
+    <p>{{e.tod}}</p>
+  </section>
+  {% endif%}
+  {%if e.Safety != '-'%}
+  <section>
+    <h2>ایمنی</h2>
+    <p>{{e.Safety}}</p>
+  </section>
+  {% endif%}
+  {%if e.interesting_facts != '-'%}
+  <section>
+    <h2>فکت جالب</h2>
+    <p>{{e.interesting_facts}}</p>
+  </section>
+  {% endif%}
+</body>
+
+</html>
