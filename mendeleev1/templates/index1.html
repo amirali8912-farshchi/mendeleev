@@ -1,493 +1,23 @@
+{%load static%}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" >
 
 <head>
     <title>جدول تناوبی عنصر ها</title>
-    <style>
-        
-        html {
-            background: linear-gradient(105deg, #1c5e7a, #000405, #2c5364);;
-            /* Old browsers */
-            background: linear-gradient(105deg, #1c5e7a, #000405, #2c5364)/*radial-gradient(ellipse at center, #454545 0%, #787878 100%)*/;
-            background-size: cover;
-            height: 100%;
-            font-family: 'Shabnam';
-            
-        }
-
-        body {
-            width: 90%;
-            width: 90vw;
-            margin: 1vh auto;
-            color: black;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #FFF;
-        }
-
-        .elements {
-            font-size: 8px;
-        }
-
-        @media screen and (min-width: 600px) {
-            .elements {
-                font-size: calc(8px + 8 * ((100vw - 600px) / 1320));
-            }
-        }
-
-        @media screen and (min-width: 1920px) {
-            .elements {
-                font-size: 18px;
-            }
-        }
-
-        .element {
-            
-            height: 9vh;
-            display: none;
-        }
-
-        .key {
-            display: none;
-        }
-
-        @media screen and (min-width: 300px) {
-            .row {
-                display: flex;
-                text-align: center;
-                height: 9.5vh;
-                justify-content: space-around;
-            }
-
-            .f-block .row {
-                justify-content: flex-end;
-            }
-
-            .element {
-                display: flex;
-                font-weight: bold;
-                align-items: center;
-                justify-content: center;
-                flex: 4.5vw 0 0;
-                color: rgb(0, 0, 0);
-                box-sizing: border-box;
-                border-radius: 2.5px;
-                margin: 2px;
-                text-decoration: none;
-            }
-
-            .description {
-                display: none;
-            }
-
-            .description:target {
-                display: block;
-            }
-
-            .key {
-                display: block;
-                padding: 0;
-                width: 60%;
-                max-width: 650px;
-                list-style-type: none;
-                color: #fff;
-                line-height: 1.8;
-                font-weight: normal;
-            }
-
-            .key li {
-                display: inline-block;
-                margin: 0 .2rem;
-                position: relative;
-                padding-left: 20px;
-                cursor: pointer;
-            }
-
-            .key li:before {
-                content: '';
-                display: block;
-                position: absolute;
-                left: 0;
-                top: 50%;
-                transform: translate(0, -50%);
-                width: 16px;
-                height: 16px;
-            }
-        }
-
-
-
-        .element.group-base {
-
-            background-color: #d48489;
-        }
-
-        .element.group-base:hover {
-            background-color: #e1aaad;
-        }
-
-        .description.group-base {
-            background-color: rgba(225, 170, 173, 0.5);
-        }
-
-        .description.group-base:hover {
-            background-color: rgba(212, 132, 137, 0.8);
-        }
-
-        .key li.group-base:before {
-            background-color: #d48489;
-        }
-
-        .hover-group-base .element {
-            opacity: .5;
-        }
-
-        .hover-group-base .element.group-base {
-            opacity: 1;
-        }
-
-        .element.group-metadata {
-            background-color: #d49384;
-        }
-
-        .element.group-metadata:hover {
-            background-color: #e1b4aa;
-        }
-
-        .description.group-metadata {
-            background-color: rgba(225, 180, 170, 0.5);
-        }
-
-        .description.group-metadata:hover {
-            background-color: rgba(212, 147, 132, 0.8);
-        }
-
-        .key li.group-metadata:before {
-            background-color: #d49384;
-        }
-
-        .hover-group-metadata .element {
-            opacity: .5;
-        }
-
-        .hover-group-metadata .element.group-metadata {
-            opacity: 1;
-        }
-
-        .element.group-sectioning {
-            background-color: #d4a784;
-        }
-
-        .element.group-sectioning:hover {
-            background-color: #e1c2aa;
-        }
-
-        .description.group-sectioning {
-            background-color: rgba(225, 194, 170, 0.5);
-        }
-
-        .description.group-sectioning:hover {
-            background-color: rgba(212, 167, 132, 0.8);
-        }
-
-        .key li.group-sectioning:before {
-            background-color: #d4a784;
-        }
-
-        .hover-group-sectioning .element {
-            opacity: .5;
-        }
-
-        .hover-group-sectioning .element.group-sectioning {
-            opacity: 1;
-        }
-
-        .element.group-text-content {
-            background-color: #d4bb84;
-        }
-
-        .element.group-text-content:hover {
-            background-color: #e1d0aa;
-        }
-
-        .description.group-text-content {
-            background-color: rgba(225, 208, 170, 0.5);
-        }
-
-        .description.group-text-content:hover {
-            background-color: rgba(212, 187, 132, 0.8);
-        }
-
-        .key li.group-text-content:before {
-            background-color: #d4bb84;
-        }
-
-        .hover-group-text-content .element {
-            opacity: .5;
-        }
-
-        .hover-group-text-content .element.group-text-content {
-            opacity: 1;
-        }
-
-        .element.group-text-semantics {
-            background-color: #d4cf84;
-        }
-
-        .element.group-text-semantics:hover {
-            background-color: #e1deaa;
-        }
-
-        .description.group-text-semantics {
-            background-color: rgba(225, 222, 170, 0.5);
-        }
-
-        .description.group-text-semantics:hover {
-            background-color: rgba(212, 207, 132, 0.8);
-        }
-
-        .key li.group-text-semantics:before {
-            background-color: #d4cf84;
-        }
-
-        .hover-group-text-semantics .element {
-            opacity: .5;
-        }
-
-        .hover-group-text-semantics .element.group-text-semantics {
-            opacity: 1;
-        }
-
-        .element.group-media {
-            background-color: #c5d484;
-        }
-
-        .element.group-media:hover {
-            background-color: #d7e1aa;
-        }
-
-        .description.group-media {
-            background-color: rgba(215, 225, 170, 0.5);
-        }
-
-        .description.group-media:hover {
-            background-color: rgba(197, 212, 132, 0.8);
-        }
-
-        .key li.group-media:before {
-            background-color: #c5d484;
-        }
-
-        .hover-group-media .element {
-            opacity: .5;
-        }
-
-        .hover-group-media .element.group-media {
-            opacity: 1;
-        }
-
-        .element.group-embedded {
-            background-color: #b1d484;
-        }
-
-        .element.group-embedded:hover {
-            background-color: #c9e1aa;
-        }
-
-        .description.group-embedded {
-            background-color: rgba(201, 225, 170, 0.5);
-        }
-
-        .description.group-embedded:hover {
-            background-color: rgba(177, 212, 132, 0.8);
-        }
-
-        .key li.group-embedded:before {
-            background-color: #b1d484;
-        }
-
-        .hover-group-embedded .element {
-            opacity: .5;
-        }
-
-        .hover-group-embedded .element.group-embedded {
-            opacity: 1;
-        }
-
-        .element.group-script {
-            background-color: #9dd484;
-        }
-
-        .element.group-script:hover {
-            background-color: #bbe1aa;
-        }
-
-        .description.group-script {
-            background-color: rgba(187, 225, 170, 0.5);
-        }
-
-        .description.group-script:hover {
-            background-color: rgba(157, 212, 132, 0.8);
-        }
-
-        .key li.group-script:before {
-            background-color: #9dd484;
-        }
-
-        .hover-group-script .element {
-            opacity: .5;
-        }
-
-        .hover-group-script .element.group-script {
-            opacity: 1;
-        }
-
-        .element.group-edits {
-            background-color: #89d484;
-        }
-
-        .element.group-edits:hover {
-            background-color: #ade1aa;
-        }
-
-        .description.group-edits {
-            background-color: rgba(173, 225, 170, 0.5);
-        }
-
-        .description.group-edits:hover {
-            background-color: rgba(137, 212, 132, 0.8);
-        }
-
-        .key li.group-edits:before {
-            background-color: #89d484;
-        }
-
-        .hover-group-edits .element {
-            opacity: .5;
-        }
-
-        .hover-group-edits .element.group-edits {
-            opacity: 1;
-        }
-
-        .element.group-table {
-            background-color: #84d493;
-        }
-
-        .element.group-table:hover {
-            background-color: #aae1b4;
-        }
-
-        .description.group-table {
-            background-color: rgba(170, 225, 180, 0.5);
-        }
-
-        .description.group-table:hover {
-            background-color: rgba(132, 212, 147, 0.8);
-        }
-
-        .key li.group-table:before {
-            background-color: #84d493;
-        }
-
-        .hover-group-table .element {
-            opacity: .5;
-        }
-
-        .hover-group-table .element.group-table {
-            opacity: 1;
-        }
-
-        .element.group-forms {
-            background-color: #84d4a7;
-        }
-
-        .element.group-forms:hover {
-            background-color: #aae1c2;
-        }
-
-        .description.group-forms {
-            background-color: rgba(170, 225, 194, 0.5);
-        }
-
-        .description.group-forms:hover {
-            background-color: rgba(132, 212, 167, 0.8);
-        }
-
-        .key li.group-forms:before {
-            background-color: #84d4a7;
-        }
-
-        .hover-group-forms .element {
-            opacity: .5;
-        }
-
-        .hover-group-forms .element.group-forms {
-            opacity: 1;
-        }
-
-        .element.group-interactive {
-            background-color: #2842d3;
-        }
-
-        .element.group-interactive:hover {
-            background-color: #2842d3;
-        }
-
-        .description.group-interactive {
-            background-color: rgba(170, 225, 208, 0.5);
-        }
-
-        .description.group-interactive:hover {
-            background-color: rgba(132, 212, 187, 0.8);
-        }
-
-        .key li.group-interactive:before {
-            background-color: #2842d3;
-        }
-
-        .hover-group-interactive .element {
-            opacity: .5;
-        }
-
-        .hover-group-interactive .element.group-interactive {
-            opacity: 1;
-        }
-
-        .element.group-web-components {
-            background-color: #84d4cf;
-        }
-
-        .element.group-web-components:hover {
-            background-color: #aae1de;
-        }
-
-        .description.group-web-components {
-            background-color: rgba(170, 225, 222, 0.5);
-        }
-
-        .description.group-web-components:hover {
-            background-color: rgba(132, 212, 207, 0.8);
-        }
-
-        .key li.group-web-components:before {
-            background-color: #84d4cf;
-        }
-
-        .hover-group-web-components .element {
-            opacity: .5;
-        }
-
-        .hover-group-web-components .element.group-web-components {
-            opacity: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <link rel="preconnect" href="//fdn.fontcdn.ir">
+    <link rel="preconnect" href="//v1.fontapi.ir">
+    <link href="https://v1.fontapi.ir/css/Estedad" rel="stylesheet">
 </head>
 
 <body class="">
+    <div class="bg">
+
+        <div class="t"></div>
+        <div class="t"></div>
+        <div class="t"></div>
+    </div>
     <main>
         <h1>جدول تناوبی عنصر ها</h1>
         <div class="elements">
@@ -558,16 +88,25 @@
             <div class="row">
                 <a href="{% url 'i' 'K' %}" class="element group-base"><span>19<br>K<br>پتاسیم<br>39,10</span></a>
                 <a href="{% url 'i' 'Ca' %}" class="element group-base"><span>20<br>Ca<br>کلسیم<br>40.08</span></a>
-                <a href="{% url 'i' 'Sc' %}" class="element group-text-content"><span>21<br>Sc<br>اسکاندیم<br>44.96</span></a>
-                <a href="{% url 'i' 'Ti' %}" class="element group-text-content"><span>22<br>Ti<br>تیتانیم<br>47.87</span></a>
-                <a href="{% url 'i' 'V' %}" class="element group-text-content"><span>23<br>V<br>وانادیم<br>50.94</span></a>
-                <a href="{% url 'i' 'Cr' %}" class="element group-text-content"><span>24<br>Cr<br>کروم<br>52.00</span></a>
-                <a href="{% url 'i' 'Mn' %}" class="element group-text-content"><span>25<br>Mn<br>منگنز<br>54.94</span></a>
-                <a href="{% url 'i' 'Fe' %}" class="element group-text-content"><span>26<br>Fe<br>آهن<br>55.85</span></a>
-                <a href="{% url 'i' 'Co' %}" class="element group-text-content"><span>27<br>Co<br>کبالت<br>58.93</span></a>
-                <a href="{% url 'i' 'Ni' %}" class="element group-text-content"><span>28<br>Ni<br>نیکل<br>58.69</span></a>
+                <a href="{% url 'i' 'Sc' %}"
+                    class="element group-text-content"><span>21<br>Sc<br>اسکاندیم<br>44.96</span></a>
+                <a href="{% url 'i' 'Ti' %}"
+                    class="element group-text-content"><span>22<br>Ti<br>تیتانیم<br>47.87</span></a>
+                <a href="{% url 'i' 'V' %}"
+                    class="element group-text-content"><span>23<br>V<br>وانادیم<br>50.94</span></a>
+                <a href="{% url 'i' 'Cr' %}"
+                    class="element group-text-content"><span>24<br>Cr<br>کروم<br>52.00</span></a>
+                <a href="{% url 'i' 'Mn' %}"
+                    class="element group-text-content"><span>25<br>Mn<br>منگنز<br>54.94</span></a>
+                <a href="{% url 'i' 'Fe' %}"
+                    class="element group-text-content"><span>26<br>Fe<br>آهن<br>55.85</span></a>
+                <a href="{% url 'i' 'Co' %}"
+                    class="element group-text-content"><span>27<br>Co<br>کبالت<br>58.93</span></a>
+                <a href="{% url 'i' 'Ni' %}"
+                    class="element group-text-content"><span>28<br>Ni<br>نیکل<br>58.69</span></a>
                 <a href="{% url 'i' 'Cu' %}" class="element group-text-content"><span>29<br>Cu<br>مس<br>63.55</span></a>
-                <a href="{% url 'i' 'Zn' %}" class="element group-text-content"><span>30<br>Zn<br>روی<br>65.39</span></a>
+                <a href="{% url 'i' 'Zn' %}"
+                    class="element group-text-content"><span>30<br>Zn<br>روی<br>65.39</span></a>
 
                 <a href="{% url 'i' 'Ga' %}" class="element group-forms"><span>31<br>Ga<br>گالیم<br>69.72</span></a>
                 <a href="{% url 'i' 'Ge' %}" class="element group-forms"><span>32<br>Ge<br>ژرمانیم<br>72.64</span></a>
@@ -579,16 +118,25 @@
             <div class="row">
                 <a href="{% url 'i' 'Rb' %}" class="element group-base"><span>37<br>Rb<br>روبیدیم<br>85.47</span></a>
                 <a href="{% url 'i' 'Sr' %}" class="element group-base"><span>38<br>Sr<br>استرانسیم<br>87.62</span></a>
-                <a href="{% url 'i' 'Y' %}" class="element group-text-content"><span>39<br>Y<br>ایتریم<br>88.91</span></a>
-                <a href="{% url 'i' 'Zr' %}" class="element group-text-content"><span>40<br>Zr<br>زیرکونیم<br>91.22</span></a>
-                <a href="{% url 'i' 'Nb' %}" class="element group-text-content"><span>41<br>Nb<br>نیوبیم<br>92.91</span></a>
-                <a href="{% url 'i' 'Mo' %}" class="element group-text-content"><span>42<br>Mo<br>مولیبدن<br>95.94</span></a>
+                <a href="{% url 'i' 'Y' %}"
+                    class="element group-text-content"><span>39<br>Y<br>ایتریم<br>88.91</span></a>
+                <a href="{% url 'i' 'Zr' %}"
+                    class="element group-text-content"><span>40<br>Zr<br>زیرکونیم<br>91.22</span></a>
+                <a href="{% url 'i' 'Nb' %}"
+                    class="element group-text-content"><span>41<br>Nb<br>نیوبیم<br>92.91</span></a>
+                <a href="{% url 'i' 'Mo' %}"
+                    class="element group-text-content"><span>42<br>Mo<br>مولیبدن<br>95.94</span></a>
                 <a href="{% url 'i' 'Tc' %}" class="element group-text-content"><span>43<br>Tc<br>تکنسیم<br>-</span></a>
-                <a href="{% url 'i' 'Ru' %}" class="element group-text-content"><span>44<br>Ru<br>روتنیم<br>101.1</span></a>
-                <a href="{% url 'i' 'Rh' %}" class="element group-text-content"><span>45<br>Rh<br>رودیم<br>102.90</span></a>
-                <a href="{% url 'i' 'Pd' %}" class="element group-text-content"><span>46<br>Pd<br>پالادیم<br>106.40</span></a>
-                <a href="{% url 'i' 'Ag' %}" class="element group-text-content"><span>47<br>Ag<br>نقره<br>107.90</span></a>
-                <a href="{% url 'i' 'Cd' %}" class="element group-text-content"><span>48<br>Cd<br>کادمیم<br>112.40</span></a>
+                <a href="{% url 'i' 'Ru' %}"
+                    class="element group-text-content"><span>44<br>Ru<br>روتنیم<br>101.1</span></a>
+                <a href="{% url 'i' 'Rh' %}"
+                    class="element group-text-content"><span>45<br>Rh<br>رودیم<br>102.90</span></a>
+                <a href="{% url 'i' 'Pd' %}"
+                    class="element group-text-content"><span>46<br>Pd<br>پالادیم<br>106.40</span></a>
+                <a href="{% url 'i' 'Ag' %}"
+                    class="element group-text-content"><span>47<br>Ag<br>نقره<br>107.90</span></a>
+                <a href="{% url 'i' 'Cd' %}"
+                    class="element group-text-content"><span>48<br>Cd<br>کادمیم<br>112.40</span></a>
 
                 <a href="{% url 'i' 'In' %}" class="element group-forms"><span>49<br>In<br>ایندیم<br>114.80</span></a>
                 <a href="{% url 'i' 'Sn' %}" class="element group-forms"><span>50<br>Sn<br>قلع<br>118.70</span></a>
@@ -600,16 +148,26 @@
             <div class="row">
                 <a href="{% url 'i' 'Cs' %}" class="element group-base"><span>55<br>Cs<br>سزیم<br>132.9</span></a>
                 <a href="{% url 'i' 'Ba' %}" class="element group-base"><span>56<br>Ba<br>باریم<br>137.3</span></a>
-                <a href="{% url 'i' 'Lu' %}" class="element group-text-content"><span>71<br>Lu<br>لوتسیم<br>175.00</span></a>
-                <a href="{% url 'i' 'Hf' %}" class="element group-text-content"><span>72<br>Hf<br>هافنیم<br>178.5</span></a>
-                <a href="{% url 'i' 'Ta' %}" class="element group-text-content"><span>73<br>Ta<br>تانتال<br>180.90</span></a>
-                <a href="{% url 'i' 'W' %}" class="element group-text-content"><span>74<br>W<br>تنگستن<br>183.80</span></a>
-                <a href="{% url 'i' 'Re' %}" class="element group-text-content"><span>75<br>Re<br>رنیم<br>186.20</span></a>
-                <a href="{% url 'i' 'Os' %}" class="element group-text-content"><span>76<br>Os<br>اسمیم<br>190.20</span></a>
-                <a href="{% url 'i' 'Ir' %}" class="element group-text-content"><span>77<br>Ir<br>ایریدیم<br>192.20</span></a>
-                <a href="{% url 'i' 'Pt' %}" class="element group-text-content"><span>78<br>Pt<br>پلاتین<br>195.1</span></a>
-                <a href="{% url 'i' 'Au' %}" class="element group-text-content"><span>79<br>Au<br>طلا<br>197.00</span></a>
-                <a href="{% url 'i' 'Hg' %}" class="element group-text-content"><span>80<br>Hg<br>جیوه<br>200.60</span></a>
+                <a href="{% url 'i' 'Lu' %}"
+                    class="element group-text-content"><span>71<br>Lu<br>لوتسیم<br>175.00</span></a>
+                <a href="{% url 'i' 'Hf' %}"
+                    class="element group-text-content"><span>72<br>Hf<br>هافنیم<br>178.5</span></a>
+                <a href="{% url 'i' 'Ta' %}"
+                    class="element group-text-content"><span>73<br>Ta<br>تانتال<br>180.90</span></a>
+                <a href="{% url 'i' 'W' %}"
+                    class="element group-text-content"><span>74<br>W<br>تنگستن<br>183.80</span></a>
+                <a href="{% url 'i' 'Re' %}"
+                    class="element group-text-content"><span>75<br>Re<br>رنیم<br>186.20</span></a>
+                <a href="{% url 'i' 'Os' %}"
+                    class="element group-text-content"><span>76<br>Os<br>اسمیم<br>190.20</span></a>
+                <a href="{% url 'i' 'Ir' %}"
+                    class="element group-text-content"><span>77<br>Ir<br>ایریدیم<br>192.20</span></a>
+                <a href="{% url 'i' 'Pt' %}"
+                    class="element group-text-content"><span>78<br>Pt<br>پلاتین<br>195.1</span></a>
+                <a href="{% url 'i' 'Au' %}"
+                    class="element group-text-content"><span>79<br>Au<br>طلا<br>197.00</span></a>
+                <a href="{% url 'i' 'Hg' %}"
+                    class="element group-text-content"><span>80<br>Hg<br>جیوه<br>200.60</span></a>
                 <a href="{% url 'i' 'Tl' %}" class="element group-forms"><span>81<br>Tl<br>تالیم<br>204.30</span></a>
                 <a href="{% url 'i' 'Pb' %}" class="element group-forms"><span>82<br>Pb<br>سرب<br>207.20</span></a>
                 <a href="{% url 'i' 'Bi' %}" class="element group-forms"><span>83<br>Bi<br>بیسموت<br>209.00</span></a>
@@ -620,21 +178,32 @@
             <div class="row">
                 <a href="{% url 'i' 'Fr' %}" class="element group-base"><span>87<br>Fr<br>فرانسیم<br>[223]</span></a>
                 <a href="{% url 'i' 'Ra' %}" class="element group-base"><span>88<br>Ra<br>رادیم<br>[226]</span></a>
-                <a href="{% url 'i' 'Lr' %}" class="element group-text-content"><span>103<br>Lr<br>لورنسیم<br>[262]</span></a>
-                <a href="{% url 'i' 'Rf' %}" class="element group-text-content"><span>104<br>Rf<br>رادرفوردیم<br>[267]</span></a>
-                <a href="{% url 'i' 'Db' %}" class="element group-text-content"><span>105<br>Db<br>دابنیم<br>[268]</span></a>
-                <a href="{% url 'i' 'Sg' %}" class="element group-text-content"><span>106<br>Sg<br>سیبورگیم<br>[271]</span></a>
-                <a href="{% url 'i' 'Bh' %}" class="element group-text-content"><span>107<br>Bh<br>بوریم<br>[272]</span></a>
-                <a href="{% url 'i' 'Hs' %}" class="element group-text-content"><span>108<br>Hs<br>هاسیم<br>[277]</span></a>
-                <a href="{% url 'i' 'Mt' %}" class="element group-text-content"><span>109<br>Mt<br>مایتنریم<br>[276]</span></a>
-                <a href="{% url 'i' 'Ds' %}" class="element group-text-content"><span>110<br>Ds<br>دارمشتاتیم<br>[281]</span></a>
-                <a href="{% url 'i' 'Rg' %}" class="element group-text-content"><span>111<br>Rg<br>رونتگنیم<br>[280]</span></a>
-                <a href="{% url 'i' 'Cn' %}" class="element group-text-content"><span>112<br>Cn<br>کوپرنسیم<br>[277]</span></a>
+                <a href="{% url 'i' 'Lr' %}"
+                    class="element group-text-content"><span>103<br>Lr<br>لورنسیم<br>[262]</span></a>
+                <a href="{% url 'i' 'Rf' %}"
+                    class="element group-text-content"><span>104<br>Rf<br>رادرفوردیم<br>[267]</span></a>
+                <a href="{% url 'i' 'Db' %}"
+                    class="element group-text-content"><span>105<br>Db<br>دابنیم<br>[268]</span></a>
+                <a href="{% url 'i' 'Sg' %}"
+                    class="element group-text-content"><span>106<br>Sg<br>سیبورگیم<br>[271]</span></a>
+                <a href="{% url 'i' 'Bh' %}"
+                    class="element group-text-content"><span>107<br>Bh<br>بوریم<br>[272]</span></a>
+                <a href="{% url 'i' 'Hs' %}"
+                    class="element group-text-content"><span>108<br>Hs<br>هاسیم<br>[277]</span></a>
+                <a href="{% url 'i' 'Mt' %}"
+                    class="element group-text-content"><span>109<br>Mt<br>مایتنریم<br>[276]</span></a>
+                <a href="{% url 'i' 'Ds' %}"
+                    class="element group-text-content"><span>110<br>Ds<br>دارمشتاتیم<br>[281]</span></a>
+                <a href="{% url 'i' 'Rg' %}"
+                    class="element group-text-content"><span>111<br>Rg<br>رونتگنیم<br>[280]</span></a>
+                <a href="{% url 'i' 'Cn' %}"
+                    class="element group-text-content"><span>112<br>Cn<br>کوپرنسیم<br>[277]</span></a>
 
                 <a href="{% url 'i' 'Nh' %}" class="element group-forms"><span>113<br>Nh<br>نیهونیم<br>[284]</span></a>
                 <a href="{% url 'i' 'Fl' %}" class="element group-forms"><span>114<br>Fl<br>فلرویم<br>[289]</span></a>
                 <a href="{% url 'i' 'Mc' %}" class="element group-forms"><span>115<br>Mc<br>مسکوویم<br>[288]</span></a>
-                <a href="{% url 'i' 'Lv' %}" class="element group-forms"><span>116<br>Lv<br>لیورموریم<br>[293]</span></a>
+                <a href="{% url 'i' 'Lv' %}"
+                    class="element group-forms"><span>116<br>Lv<br>لیورموریم<br>[293]</span></a>
                 <a href="{% url 'i' 'Ts' %}" class="element group-forms"><span>117<br>Ts<br>تنسینه<br>[296]</span></a>
                 <a href="{% url 'i' 'Og' %}" class="element group-forms"><span>118<br>Og<br>اوگانسون<br>[294]</span></a>
             </div>
@@ -642,15 +211,16 @@
 
 
             <div class="row">
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
-                <div class="element empty-element"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
+                <div class="element empty-element1"></div>
             </div>
 
 
@@ -658,50 +228,78 @@
             <div class="row">
 
 
-                                
+
                 <div class="element empty-element"></div>
                 <div class="element empty-element"></div>
                 <div class="element empty-element"></div>
-                
-                <a href="{% url 'i' 'La' %}" class="element group-interactive"><span>57<br>La<br>لانتان<br>138.90</span></a>
-                <a href="{% url 'i' 'Ce' %}" class="element group-interactive"><span>58<br>Ce<br>سریم<br>140.10</span></a>
-                <a href="{% url 'i' 'Pr' %}" class="element group-interactive"><span>59<br>Pr<br>پراسئودیمیوم<br>140.90</span></a>
-                <a href="{% url 'i' 'Nd' %}" class="element group-interactive"><span>60<br>Nd<br>نئودیمیوم<br>144.20</span></a>
-                <a href="{% url 'i' 'Pm' %}" class="element group-interactive"><span>61<br>Pm<br>پرومتیم<br>[145]</span></a>
-                <a href="{% url 'i' 'Sm' %}" class="element group-interactive"><span>62<br>Sm<br>ساماریم<br>150.4</span></a>
-                <a href="{% url 'i' 'Eu' %}" class="element group-interactive"><span>63<br>Eu<br>اوروپیم<br>152.00</span></a>
-                <a href="{% url 'i' 'Gd' %}" class="element group-interactive"><span>64<br>Gd<br>گادولینیوم<br>157.30</span></a>
-                <a href="{% url 'i' 'Tb' %}" class="element group-interactive"><span>65<br>Tb<br>تربیم<br>158.90</span></a>
-                <a href="{% url 'i' 'Dy' %}" class="element group-interactive"><span>66<br>Dy<br>دیسپروزیم<br>162.50</span></a>
-                <a href="{% url 'i' 'Ho' %}" class="element group-interactive"><span>67<br>Ho<br>هولمیم<br>164.90</span></a>
-                <a href="{% url 'i' 'Er' %}" class="element group-interactive"><span>68<br>Er<br>اربیم<br>167.30</span></a>
-                <a href="{% url 'i' 'Tm' %}" class="element group-interactive"><span>69<br>Tm<br>تولیم<br>168.90</span></a>
-                <a href="{% url 'i' 'Yb' %}" class="element group-interactive"><span>70<br>Yb<br>ایتربیم<br>173.00</span></a>
+
+                <a href="{% url 'i' 'La' %}"
+                    class="element group-interactive"><span>57<br>La<br>لانتان<br>138.90</span></a>
+                <a href="{% url 'i' 'Ce' %}"
+                    class="element group-interactive"><span>58<br>Ce<br>سریم<br>140.10</span></a>
+                <a href="{% url 'i' 'Pr' %}"
+                    class="element group-interactive"><span>59<br>Pr<br>پراسئودیمیوم<br>140.90</span></a>
+                <a href="{% url 'i' 'Nd' %}"
+                    class="element group-interactive"><span>60<br>Nd<br>نئودیمیوم<br>144.20</span></a>
+                <a href="{% url 'i' 'Pm' %}"
+                    class="element group-interactive"><span>61<br>Pm<br>پرومتیم<br>[145]</span></a>
+                <a href="{% url 'i' 'Sm' %}"
+                    class="element group-interactive"><span>62<br>Sm<br>ساماریم<br>150.4</span></a>
+                <a href="{% url 'i' 'Eu' %}"
+                    class="element group-interactive"><span>63<br>Eu<br>اوروپیم<br>152.00</span></a>
+                <a href="{% url 'i' 'Gd' %}"
+                    class="element group-interactive"><span>64<br>Gd<br>گادولینیوم<br>157.30</span></a>
+                <a href="{% url 'i' 'Tb' %}"
+                    class="element group-interactive"><span>65<br>Tb<br>تربیم<br>158.90</span></a>
+                <a href="{% url 'i' 'Dy' %}"
+                    class="element group-interactive"><span>66<br>Dy<br>دیسپروزیم<br>162.50</span></a>
+                <a href="{% url 'i' 'Ho' %}"
+                    class="element group-interactive"><span>67<br>Ho<br>هولمیم<br>164.90</span></a>
+                <a href="{% url 'i' 'Er' %}"
+                    class="element group-interactive"><span>68<br>Er<br>اربیم<br>167.30</span></a>
+                <a href="{% url 'i' 'Tm' %}"
+                    class="element group-interactive"><span>69<br>Tm<br>تولیم<br>168.90</span></a>
+                <a href="{% url 'i' 'Yb' %}"
+                    class="element group-interactive"><span>70<br>Yb<br>ایتربیم<br>173.00</span></a>
                 <div class="element empty-element"></div>
             </div>
 
             <div class="row">
 
 
-                                
+
                 <div class="element empty-element"></div>
                 <div class="element empty-element"></div>
                 <div class="element empty-element"></div>
-                
-                <a href="{% url 'i' 'Ac' %}" class="element group-interactive"><span>89<br>Ac<br>اکتینیم<br>[227]</span></a>
-                <a href="{% url 'i' 'TH' %}" class="element group-interactive"><span>90<br>Th<br>توریم<br>232.00</span></a>
-                <a href="{% url 'i' 'Pa' %}" class="element group-interactive"><span>91<br>Pa<br>پروتاکتینیم<br>231.00</span></a>
-                <a href="{% url 'i' 'U' %}" class="element group-interactive"><span>92<br>U<br>اورانیم<br>238.00</span></a>
-                <a href="{% url 'i' 'Np' %}" class="element group-interactive"><span>93<br>Np<br>نپتونیم<br>[237]</span></a>
-                <a href="{% url 'i' 'Pu' %}" class="element group-interactive"><span>94<br>Pu<br>پلوتونیم<br>[244]</span></a>
-                <a href="{% url 'i' 'Am' %}" class="element group-interactive"><span>95<br>Am<br>امریسیم<br>[243]</span></a>
-                <a href="{% url 'i' 'Cm' %}" class="element group-interactive"><span>96<br>Cm<br>کوریم<br>[247]</span></a>
-                <a href="{% url 'i' 'Bk' %}" class="element group-interactive"><span>97<br>Bk<br>برکلیم<br>[247]</span></a>
-                <a href="{% url 'i' 'Cf' %}" class="element group-interactive"><span>98<br>Cf<br>کالیفرنیم<br>[251]</span></a>
-                <a href="{% url 'i' 'Es' %}" class="element group-interactive"><span>99<br>Es<br>اینشتینیم<br>[252]</span></a>
-                <a href="{% url 'i' 'Fm' %} class="element group-interactive"><span>100<br>Fm<br>فرمیم<br>[257]</span></a>
-                <a href="{% url 'i' 'Md' %}" class="element group-interactive"><span>101<br>Md<br>مندلیم<br>[258]</span></a>
-                <a href="{% url 'i' 'No' %}" class="element group-interactive"><span>102<br>No<br>توبلیم<br>[259]</span></a>
+
+                <a href="{% url 'i' 'Ac' %}"
+                    class="element group-interactive"><span>89<br>Ac<br>اکتینیم<br>[227]</span></a>
+                <a href="{% url 'i' 'TH' %}"
+                    class="element group-interactive"><span>90<br>Th<br>توریم<br>232.00</span></a>
+                <a href="{% url 'i' 'Pa' %}"
+                    class="element group-interactive"><span>91<br>Pa<br>پروتاکتینیم<br>231.00</span></a>
+                <a href="{% url 'i' 'U' %}"
+                    class="element group-interactive"><span>92<br>U<br>اورانیم<br>238.00</span></a>
+                <a href="{% url 'i' 'Np' %}"
+                    class="element group-interactive"><span>93<br>Np<br>نپتونیم<br>[237]</span></a>
+                <a href="{% url 'i' 'Pu' %}"
+                    class="element group-interactive"><span>94<br>Pu<br>پلوتونیم<br>[244]</span></a>
+                <a href="{% url 'i' 'Am' %}"
+                    class="element group-interactive"><span>95<br>Am<br>امریسیم<br>[243]</span></a>
+                <a href="{% url 'i' 'Cm' %}"
+                    class="element group-interactive"><span>96<br>Cm<br>کوریم<br>[247]</span></a>
+                <a href="{% url 'i' 'Bk' %}"
+                    class="element group-interactive"><span>97<br>Bk<br>برکلیم<br>[247]</span></a>
+                <a href="{% url 'i' 'Cf' %}"
+                    class="element group-interactive"><span>98<br>Cf<br>کالیفرنیم<br>[251]</span></a>
+                <a href="{% url 'i' 'Es' %}"
+                    class="element group-interactive"><span>99<br>Es<br>اینشتینیم<br>[252]</span></a>
+                <a href="{% url 'i' 'Fm' %}"
+                    class="element group-interactive"><span>100<br>Fm<br>فرمیم<br>[257]</span></a>
+                <a href="{% url 'i' 'Md' %}"
+                    class="element group-interactive"><span>101<br>Md<br>مندلیم<br>[258]</span></a>
+                <a href="{% url 'i' 'No' %}"
+                    class="element group-interactive"><span>102<br>No<br>توبلیم<br>[259]</span></a>
                 <div class="element empty-element"></div>
             </div>
 
@@ -710,13 +308,6 @@
 
 
 
-        <ul class="key">
-            <li class="group-base">base</li>
-            <li class="group-text-content">text-content</li>
-            <li class="group-forms">forms</li>
-            <li class="group-interactive">interactive</li>
-
-        </ul>
 
 
 
